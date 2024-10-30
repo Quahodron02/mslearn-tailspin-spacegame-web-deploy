@@ -76,7 +76,7 @@ stages:
     variables:
     - group: Release
     pool:
-      name: '$(PoolName)'    
+      name: '$(PoolName)'
     strategy:
       runOnce:
         deploy:
