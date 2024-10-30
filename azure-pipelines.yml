@@ -72,11 +72,11 @@ stages:
   dependsOn: Build
   jobs:
   - deployment: Deploy
-    pool:
-      name: '$(PoolName)'
     environment: dev
     variables:
     - group: Release
+    pool:
+      name: '$(PoolName)'    
     strategy:
       runOnce:
         deploy:
