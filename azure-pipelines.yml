@@ -1,9 +1,6 @@
 trigger:
 - '*'
 
-pool:
-  name: Codespace_self_hosted_agent
-
 variables:
   buildConfiguration: 'Release'
 
@@ -13,12 +10,16 @@ stages:
   jobs: 
   - job: 'Build'
     displayName: 'Build job'
-    pool:
-      name: Codespace_self_hosted_agent
-
+    
     variables:
-      wwwrootDir: 'Tailspin.SpaceGame.Web/wwwroot'
-      dotnetSdkVersion: '6.x'
+      - group: Build
+      - name: wwwrootDir
+        value: 'Tailspin.SpaceGame.Web/wwwroot'
+      - name: dotnetSdkVersion
+        value: '6.x'
+
+    pool:
+      name: '$(PoolName)'     
 
     steps:
     - task: UseDotNet@2
@@ -65,3 +66,27 @@ stages:
 
     - publish: '$(Build.ArtifactStagingDirectory)'
       artifact: drop
+
+- stage: 'Deploy'
+  displayName: 'Deploy the web application'
+  dependsOn: Build
+  jobs:
+  - deployment: Deploy
+    pool:
+      name: '$(PoolName)'
+    environment: dev
+    variables:
+    - group: Release
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: drop
+          - task: AzureWebApp@1
+            displayName: 'Azure App Service Deploy: website'
+            inputs:
+              azureSubscription: '$(ServiceConnection)'
+              appType: 'webAppLinux'
+              appName: '$(WebAppName)'
+              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
