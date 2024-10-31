@@ -19,7 +19,7 @@ stages:
         value: '6.x'
 
     pool:
-      name: '$(PoolName)'     
+      name: '$(PoolName)'    
 
     steps:
     - task: UseDotNet@2
@@ -83,7 +83,9 @@ stages:
           steps:
           - download: current
             artifact: drop
-          - script: echo $(ServiceConnection)  
+          - script: echo $(ServiceConnection)
+          - script: echo $(PoolName)
+          - script: echo $(WebAppName)
           # - task: AzureWebApp@1
           #   displayName: 'Azure App Service Deploy: website'
           #   inputs:
