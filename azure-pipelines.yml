@@ -75,7 +75,7 @@ stages:
   - group: Release
 
   pool:
-    name: $(ServiceConnection)
+    name: $(PoolName)
 
 
   jobs:
