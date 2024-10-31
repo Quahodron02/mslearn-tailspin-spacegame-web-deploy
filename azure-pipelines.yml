@@ -91,10 +91,11 @@ stages:
           - script: echo $(ServiceConnection)
           - script: echo $(PoolName)
           - script: echo $(WebAppName)
-          # - task: AzureWebApp@1
-          #   displayName: 'Azure App Service Deploy: website'
-          #   inputs:
-          #     azureSubscription: '$(ServiceConnection)'
-          #     appType: 'webAppLinux'
-          #     appName: '$(WebAppName)'
-          #     package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
+
+          - task: AzureWebApp@1
+            displayName: 'Azure App Service Deploy: website'
+            inputs:
+              azureSubscription: '$(ServiceConnection)'
+              appType: 'webAppLinux'
+              appName: '$(WebAppName)'
+              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
