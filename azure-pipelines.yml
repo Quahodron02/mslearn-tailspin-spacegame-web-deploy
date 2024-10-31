@@ -75,7 +75,7 @@ stages:
   - group: Release
 
   pool:
-    name: Codespace_self_hosted_agent
+    name: $(ServiceConnection)
 
 
   jobs:
