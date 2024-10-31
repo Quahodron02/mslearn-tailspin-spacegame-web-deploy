@@ -70,13 +70,17 @@ stages:
 - stage: 'Deploy'
   displayName: 'Deploy the web application'
   dependsOn: Build
+
+  variables:
+  - group: Release
+
+  pool:
+    name: Codespace_self_hosted_agent
+
+
   jobs:
   - deployment: Deploy
     environment: dev
-    variables:
-    - group: Release
-    pool:
-      name: Codespace_self_hosted_agent
     strategy:
       runOnce:
         deploy:
