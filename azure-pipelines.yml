@@ -3,7 +3,6 @@ trigger:
 
 variables:
   buildConfiguration: 'Release'
-  pool_deploy: 'Codespace_self_hosted_agent'
 
 stages:
 - stage: 'Build'
@@ -72,19 +71,16 @@ stages:
   displayName: 'Deploy the web application'
   dependsOn: Build
 
-  variables:
-  - group: Release
-
-  pool:
-    name: '$(pool_deploy)'
-
-
   jobs:
   - deployment: Deploy
     environment: dev
+    variables:
+    - group: Release
     strategy:
       runOnce:
         deploy:
+          pool:
+            name: 'Codespace_self_hosted_agent'        
           steps:
           - download: current
             artifact: drop
