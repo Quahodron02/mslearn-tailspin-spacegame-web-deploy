@@ -73,7 +73,7 @@ stages:
   jobs:
   - deployment: Deploy
     pool:
-      name: 'Codespace_self_hosted_agent'   
+      name: 'Linux'   
     environment: dev
     variables:
     - group: Release
