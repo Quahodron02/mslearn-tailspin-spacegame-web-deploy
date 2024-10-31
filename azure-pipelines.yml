@@ -70,24 +70,22 @@ stages:
 - stage: 'Deploy'
   displayName: 'Deploy the web application'
   dependsOn: Build
-
   jobs:
   - deployment: Deploy
+    pool:
+      name: 'Codespace_self_hosted_agent'   
     environment: dev
     variables:
     - group: Release
     strategy:
       runOnce:
-        deploy:
-          pool:
-            name: 'Codespace_self_hosted_agent'        
+        deploy:     
           steps:
-          - download: current
-            artifact: drop
           - script: echo $(ServiceConnection)
           - script: echo $(PoolName)
           - script: echo $(WebAppName)
-
+          - download: current
+            artifact: drop
           - task: AzureWebApp@1
             displayName: 'Azure App Service Deploy: website'
             inputs:
