@@ -76,7 +76,7 @@ stages:
     variables:
     - group: Release
     pool:
-      name: '$(PoolName)'
+      name: Codespace_self_hosted_agent
     strategy:
       runOnce:
         deploy:
