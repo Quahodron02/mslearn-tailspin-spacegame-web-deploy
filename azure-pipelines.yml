@@ -82,7 +82,7 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Azure App Service Deploy: website'
             inputs:
-              azureSubscription: 'Quah-service-connection-Space_Game_web_release'
+              azureSubscription: 'Quah-service-connection-Space_Game_non-functional-tests'
               appType: 'webAppLinux'
               appName: '$(WebAppNameDev)'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
@@ -106,7 +106,7 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Azure App Service Deploy: website'
             inputs:
-              azureSubscription: 'Quah-service-connection-Space_Game_web_release'
+              azureSubscription: 'Quah-service-connection-Space_Game_non-functional-tests'
               appType: 'webAppLinux'
               appName: '$(WebAppNameTest)'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
@@ -130,7 +130,7 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Azure App Service Deploy: website'
             inputs:
-              azureSubscription: 'Quah-service-connection-Space_Game_web_release'
+              azureSubscription: 'Quah-service-connection-Space_Game_non-functional-tests'
               appType: 'webAppLinux'
               appName: '$(WebAppNameStaging)'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
